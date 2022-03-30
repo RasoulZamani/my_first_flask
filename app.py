@@ -14,10 +14,11 @@ app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 app.secret_key = 'Flaskpass#'
 api = Api(app)
 
+''' it transformed to run.py due to deployment issue
 @app.before_first_request
 def create_tables():
     db.create_all()
-
+'''
 jwt = JWT(app, authenticate, identity) #/auth
 
 #adding resources to api
