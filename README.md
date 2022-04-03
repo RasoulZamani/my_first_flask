@@ -1,6 +1,6 @@
 # my_first_flask
 ## Description
-it is my first flask restful project using SQLAlchemy
+This is my first flask restful project using SQLAlchemy, flask_jwt(-extended) based on Jose Course. It can create differernt stores with diverse items and each of them has name, price and id. also it has a login and register part. after creating acount (its free!) you can create your objects by post and update them by put methods. getting all or one special item or store is possible too, notice for posting it need authentication. it was tested by Postman. everything was OK. 
 
 ## Dependencies
 aniso8601==9.0.1,
