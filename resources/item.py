@@ -3,7 +3,7 @@
 """
 
 from flask_restful import Resource, reqparse
-from flask_jwt import jwt_required
+from flask_jwt_extended import jwt_required#, get_jwt_claims
 from models.item import ItemModel
 
 
@@ -43,13 +43,17 @@ class Item(Resource):
             return {"massage": "error ocurres when inserting data in db"},500
         return item.json(),201
 
-
+    @jwt_required()
     def delete(self, name):
+        #claims = get_jwt_claims()
+        #if not claims['is_admin']:
+        #    return {'massage':'Admin privilage required'}, 401
         item = ItemModel.find_by_name(name)
         if item:
             item.delete_from_db()
             return {"massage": f" An item with name {name} was deleted seccessfully!"}
         return {"massage": f" imposible to delete item with name: {name}, due to it is not exist!"}
+
     def put(self, name):
         #data = request.get_json(silent=True)
         data = Item.parser.parse_args()
@@ -67,5 +71,5 @@ class Item(Resource):
 
 class ItemList(Resource):
     def get(self):
-        return {'item': [item.json() for item in ItemModel.query.all()] }
+        return {'item': [item.json() for item in ItemModel.find_all()] }
     #or you can use map: list(map(lambda x: x.json, ItemModel.query.all()))
